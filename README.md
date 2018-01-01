@@ -3,7 +3,7 @@ It is a dynamic array which free types.
 It is container, which cat containting objects different types, and different lenght.
 
 # SampleCode
-
+ex1
   int main() {
 
     DynamicTuple dynt;
@@ -23,6 +23,7 @@ It is container, which cat containting objects different types, and different le
   
     return 0
   }
+end
 
 # Output
 int: 8
