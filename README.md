@@ -4,6 +4,12 @@ It is container, which cat containting objects different types, and different le
 
 # SampleCode
 
+    #include <iostream>
+    #include <string>
+    #include "DynamicTuple.h"
+    
+    using namespace std;
+    
     int main() {
 
         DynamicTuple dynt;
