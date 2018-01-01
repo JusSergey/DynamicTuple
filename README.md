@@ -3,27 +3,26 @@ It is a dynamic array which free types.
 It is container, which cat containting objects different types, and different lenght.
 
 # SampleCode
-ex1
-  int main() {
 
-    DynamicTuple dynt;
-    dynt.emplace<int>(8);
-    dynt.emplace<string>("Hello, world");
+    int main() {
 
-    std::initializer_list<int> some_vec{1, 4, 3, 5};
-    dynt.emplace<vector<int>>(some_vec);
+        DynamicTuple dynt;
+        dynt.emplace<int>(8);
+        dynt.emplace<string>("Hello, world");
 
-    int i = 0;
-    cout << "int: " << dynt.get<int>(i++) << '\n';
-    cout << "string: " << dynt.get<string>(i++) << '\n';
+        std::initializer_list<int> some_vec{1, 4, 3, 5};
+        dynt.emplace<vector<int>>(some_vec);
 
-    for (int k : dynt.get<vector<int>>(i))
-        cout << "vec elem: " << k << '\n';
-    cout << '\n';
+        int i = 0;
+        cout << "int: " << dynt.get<int>(i++) << '\n';
+        cout << "string: " << dynt.get<string>(i++) << '\n';
+
+        for (int k : dynt.get<vector<int>>(i))
+            cout << "vec elem: " << k << '\n';
+        cout << '\n';
   
-    return 0
-  }
-end
+        return 0
+    }
 
 # Output
 int: 8
