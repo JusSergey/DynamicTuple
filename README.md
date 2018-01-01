@@ -4,7 +4,8 @@ It is container, which cat containting objects different types, and different le
 
 # SampleCode
 
-int main() {
+  int main() {
+
     DynamicTuple dynt;
     dynt.emplace<int>(8);
     dynt.emplace<string>("Hello, world");
@@ -21,7 +22,7 @@ int main() {
     cout << '\n';
   
     return 0
-}
+  }
 
 # Output
 int: 8
