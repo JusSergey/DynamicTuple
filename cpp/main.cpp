@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "DynamicTuple.h"
+#include "test.h"
 using namespace std;
 
 template <typename value_t>
@@ -19,43 +20,53 @@ public:
 
 int main()
 {
+    auto msec2 = computeTimeForTask([]{
+        vector<string> vec;
+        for (int i = 0; i < 1e7; ++i) {
+            vec.push_back("Hello, world");
+        }
+    });
 
-    {
-        DynamicTuple t;
+    cout << "time for task: " << msec2 << "msec\n";
 
-        auto il = {1, 2, 36, 5, 3, 4};
-        t.emplace<vector<int>>(il); // №1
-        t.emplace<float>(123.5f); // №2
-        t.emplace<string>("Hello, my code"); // №3
+    auto msec1 = computeTimeForTask([]{
+        DynamicTuple vec;
+        for (int i = 0; i < 1e7; ++i) {
+            vec.emplace<string>("Hello, world");
+        }
+    });
+    cout << "time for task: " << msec1 << "msec\n";
 
 
-        // print vector<int> [№1]
-        for (const auto &vec : t.get<vector<int>>(0))
-            cout << vec << ' ';
-        cout << '\n';
 
-        // print float [№2]
-        cout << t.get<float>(1) << '\n';
+    cout << "diff: " << (((long double)(msec1)) / msec2) << '\n';
 
-        // print string [№3]
-        for (char ch : t.get<string>(2))
-            cout << ch << ' ';
-        cout << '\n';
+    // CPU: Intel(R) Core(TM)2 Duo CPU     P8600  @ 2.40GHz
+    // RAM: SODIMM DDR2 Synchronous 800 MHz (1,2 ns) 4GiB
 
-        DynamicTuple t2;
-        t2.emplace<string>("other DynamicTuple, in the DynamicTuple");
-        // №4
-        t.moveToContainer<DynamicTuple>(move(t2));
+//    PERFORMANCE RAM
+//    string: "Hello, world"
+//    stat = 307MB
+//    dyn  = 534MB
+//    ~1.739
 
-        // print other DynamicTuple [№3]
-        for (char ch : t.get<DynamicTuple>(3).get<string>(0))
-            cout << ch;
-        cout.put('\n');
+//    int: i
+//    stat = 40  MB
+//    dyn  = 383 MB
+//    ~9.575
 
-    }
+//    PERFORMANCE CPU
+//    string: "Hello, world"
+//    stat = 2132 ms
+//    dyn  = 6522 ms
+//    ~3.059
 
-    cin.get();
-    cout.flush();
+//    int: i
+//    stat = 514  ms
+//    dyn  = 6352 ms
+//    ~12.358
+
+
 
     return 0;
 }

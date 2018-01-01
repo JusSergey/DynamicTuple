@@ -4,7 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    DynamicTuple.cpp
+    DynamicTuple.cpp \
+    test.cpp
 
 HEADERS += \
-    DynamicTuple.h
+    DynamicTuple.h \
+    test.h
