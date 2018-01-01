@@ -3,6 +3,7 @@ It is a dynamic array which free types.
 It is container, which cat containting objects different types, and different lenght.
 
 # SampleCode
+
 int main() {
     DynamicTuple dynt;
     dynt.emplace<int>(8);
@@ -21,6 +22,7 @@ int main() {
   
     return 0
 }
+
 # Output
 int: 8
 string: Hello, world
