@@ -2,7 +2,7 @@
 It is a dynamic array which free types.
 It is container, which cat containting objects different types, and different lenght.
 
-# SampleCode
+# Example
 
     #include <iostream>
     #include <string>
