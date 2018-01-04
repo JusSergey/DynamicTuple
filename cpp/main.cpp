@@ -18,55 +18,36 @@ public:
     }
 };
 
+void printdt(const DynamicTuple &dt, size_t len, const char *name = "") {
+    cout << "\n~~~~~~" << name << "~~~~~~\n";
+    for (size_t i = 0; i < len; ++i)
+        cout << dt.getCopy<int>(i) << ' ';
+    cout.put('\n');
+}
+
+#define PrintBlock(DT1, name1, DT2, name2) \
+    cout << "\n###########################\n"; \
+    printdt(DT1, DT1.size(), name1); \
+    printdt(DT2, DT2.size(), name2);
+
+#define FastPrint PrintBlock(dt1, "dt1", dt2, "dt2");
+
 int main()
 {
-    auto msec2 = computeTimeForTask([]{
-        vector<string> vec;
-        for (int i = 0; i < 1e7; ++i) {
-            vec.push_back("Hello, world");
-        }
-    });
+    DynamicTuple dt1, dt2;
 
-    cout << "time for task: " << msec2 << "msec\n";
+    for (int i = 0; i < 10; ++i)
+        dt1.emplace<int>(i);
 
-    auto msec1 = computeTimeForTask([]{
-        DynamicTuple vec;
-        for (int i = 0; i < 1e7; ++i) {
-            vec.emplace<string>("Hello, world");
-        }
-    });
-    cout << "time for task: " << msec1 << "msec\n";
+    FastPrint;
+    dt2 = dt1;
+    FastPrint;
+    dt1 = move(dt2);
+    FastPrint;
+    dt2 = move(dt1);
+    FastPrint
 
-
-
-    cout << "diff: " << (((long double)(msec1)) / msec2) << '\n';
-
-    // CPU: Intel(R) Core(TM)2 Duo CPU     P8600  @ 2.40GHz
-    // RAM: SODIMM DDR2 Synchronous 800 MHz (1,2 ns) 4GiB
-
-//    PERFORMANCE RAM
-//    string: "Hello, world"
-//    stat = 307MB
-//    dyn  = 534MB
-//    ~1.739
-
-//    int: i
-//    stat = 40  MB
-//    dyn  = 383 MB
-//    ~9.575
-
-//    PERFORMANCE CPU
-//    string: "Hello, world"
-//    stat = 2132 ms
-//    dyn  = 6522 ms
-//    ~3.059
-
-//    int: i
-//    stat = 514  ms
-//    dyn  = 6352 ms
-//    ~12.358
-
-
+    cin.get();
 
     return 0;
 }
