@@ -142,11 +142,7 @@ public:
     }
 
     DynamicTuple &operator = (DynamicTuple &&dt) {
-        resize(dt.size());
-        for (size_type i = 0; i < dt.size(); ++i){
-            this->operator [](i) = move(dt[i]);
-        }
-        dt.resize(0);
+        vector_type::operator = (move(dt));
         return *this;
     }
 
