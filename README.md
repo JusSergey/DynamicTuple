@@ -39,6 +39,9 @@ It is container, which cat containting objects different types, and different le
     vec elem: 5
 
 # Test Performance
+
+    ALL TESTS ADDING 10.000.000 elements
+
     HARDWARE: 
     CPU: Intel(R) Core(TM)2 Duo CPU     P8600  @ 2.40GHz
     RAM: SODIMM DDR2 Synchronous 800 MHz (1,2 ns) 4GiB
