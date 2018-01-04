@@ -44,22 +44,26 @@ It is container, which cat containting objects different types, and different le
     RAM: SODIMM DDR2 Synchronous 800 MHz (1,2 ns) 4GiB
 
     PERFORMANCE RAM
+    stat = std::vector<std::string>;
     string: "Hello, world"
     stat = 307MB
     dyn  = 534MB
     ~1.739
-
+    
+    stat = std::vector<int>;
     int: i
     stat = 40  MB
     dyn  = 383 MB
     ~9.575
 
     PERFORMANCE CPU
+    stat = std::vector<std::string>;
     string: "Hello, world"
     stat = 2132 ms
     dyn  = 6522 ms
     ~3.059
 
+    stat = std::vector<int>;
     int: i
     stat = 514  ms
     dyn  = 6352 ms
