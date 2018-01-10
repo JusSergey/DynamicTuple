@@ -125,8 +125,6 @@ public:
         Helper() = delete;
         inline static void *getRawPtrToValue(const BasicProxyValue &bpv) {
             return &reinterpret_cast<ProxyValue<char>*>(const_cast<BasicProxyValue*>(&bpv))->value;
-//            return reinterpret_cast<void *>
-//                        ( &((reinterpret_cast< ProxyValue<UniquePtr<char>>* >(&bpv))->value.get()) );
         }
     };
 
@@ -172,8 +170,7 @@ public:
     /* OVERLOADING OPERATORS */
     DynamicTuple &operator = (const DynamicTuple &tuple_from_copy) {
         for (size_type i = 0; i < tuple_from_copy.size(); ++i) {
-            auto casting_to_need_type = reinterpret_cast<ProxyValue<UniquePtr<void>> *>(&(*tuple_from_copy[i]));
-            auto ptr_to_raw_data = reinterpret_cast<void *>(&casting_to_need_type->value);
+            auto ptr_to_raw_data = Helper::getRawPtrToValue(*tuple_from_copy[i]);
             auto making_need_obj_for_vector = UniquePtrBPV(tuple_from_copy[i]->makeProxyPtr(ptr_to_raw_data));
             push_back(move(making_need_obj_for_vector));
         }
@@ -218,33 +215,53 @@ public:
 
 class DebugTest
 {
+    int _countSuccess = 0;
+    int _countFailed  = 0;
 public:
     static void start() {
         DebugTest _debug_test_;
         _debug_test_.Test();
     }
-    DebugTest() {
-        DynamicTuple dt;
-    }
+    DebugTest() = default;
 
     bool TestIsEqual() {
         DynamicTuple dt1, dt2;
 
         dt1.emplace<int>(123);
-        dt1.emplace<std::string>("hello");
+        dt1.emplace<std::string>("Hello");
         dt1.emplace<float>(2.3f);
 
         dt2.emplace<int>(123);
         dt2.emplace<std::string>("Hello");
         dt2.emplace<float>(2.3f);
 
-        return (dt1 == dt2 && dt2 == dt1);
+        bool result(dt1 == dt2 && dt2 == dt1);
+
+        ++(result ? _countSuccess : _countFailed);
+
+        return result;
     }
+
+    bool TestCopy() {
+        DynamicTuple dt1, dt2;
+        dt1.copyToContainer(123);
+        dt1.copyToContainer(std::string("Hello, world"));
+        dt1.copyToContainer(123.5f);
+
+        dt2 = dt1;
+
+        bool result(dt1 == dt2 && dt2 == dt1);
+
+        ++(result ? _countSuccess : _countFailed);
+
+        return result;
+    }
+
     bool Test() {
-        int insertValue = 2788;
-        DynamicTuple dt;
-        dt.copyToContainer(insertValue);
-        DEBUG_PRINT << (insertValue == *(int*)DynamicTuple::Helper::getRawPtrToValue(*&*dt[0]));
+        DEBUG_PRINT << "Test equal: " << (TestIsEqual() ? "true" : "false") << '\n';
+        DEBUG_PRINT << "Test copy:  " << (TestCopy() ? "true" : "false") << '\n';
+        std::cout << " SUCCESS: " << _countSuccess << '\n'
+                  << " FAILED : " << _countFailed  << '\n';
         return true;
     }
 
