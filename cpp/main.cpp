@@ -36,16 +36,18 @@ int main()
 {
     DynamicTuple dt1, dt2;
 
-    for (int i = 0; i < 10; ++i)
-        dt1.emplace<int>(i);
+    dt1.emplace<int>(8);
+    dt2.emplace<int>(8);
 
-    FastPrint;
-    dt2 = dt1;
-    FastPrint;
-    dt1 = move(dt2);
-    FastPrint;
-    dt2 = move(dt1);
-    FastPrint
+
+
+    cout << "dt1 == dt2 : " << (dt1 == dt2) << (dt2 == dt1) << '\n';
+
+    DynamicTuple::ProxyValue<char> pv('q');
+
+    void *ptr = DynamicTuple::Helper::getRawPtrToValue(pv);
+
+    cout << *(reinterpret_cast<char*>(ptr)) << '\n';
 
     cin.get();
 
