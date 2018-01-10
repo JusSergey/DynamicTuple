@@ -2,7 +2,7 @@
 It is a dynamic array which free types.
 It is container, which cat containting objects different types, and different lenght.
 
-# SampleCode
+# Example
 
     #include <iostream>
     #include <string>
@@ -39,27 +39,34 @@ It is container, which cat containting objects different types, and different le
     vec elem: 5
 
 # Test Performance
+
+    ALL TESTS ADDING 10.000.000 elements
+
     HARDWARE: 
     CPU: Intel(R) Core(TM)2 Duo CPU     P8600  @ 2.40GHz
     RAM: SODIMM DDR2 Synchronous 800 MHz (1,2 ns) 4GiB
 
     PERFORMANCE RAM
+    stat = std::vector<std::string>;
     string: "Hello, world"
     stat = 307MB
     dyn  = 534MB
     ~1.739
-
+    
+    stat = std::vector<int>;
     int: i
     stat = 40  MB
     dyn  = 383 MB
     ~9.575
 
     PERFORMANCE CPU
+    stat = std::vector<std::string>;
     string: "Hello, world"
     stat = 2132 ms
     dyn  = 6522 ms
     ~3.059
 
+    stat = std::vector<int>;
     int: i
     stat = 514  ms
     dyn  = 6352 ms
